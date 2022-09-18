@@ -1,7 +1,7 @@
 {
   "name": "calculadora_com_ts",
   "version": "1.0.0",
-  "description": "",
+  "description": "Meu primeiro projeto usando TypeScript e configurado com webpack",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --watch",
