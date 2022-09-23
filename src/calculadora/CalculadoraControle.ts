@@ -67,6 +67,13 @@ export default class CalculadoraControle {
     this.tela.conteudo = numero.toString();
   }
   adicionarOperador(operador: string): void {
-    this.adicionarOperacao(operador);
+    if (isNaN(Number(this.operacao.ultimaPosicao))) {
+      this.operacao.ultimaPosicao = operador;
+    } else {
+      if (this.operacao.length === 0) {
+        this.adicionarOperacao('0');
+      }
+      this.adicionarOperacao(operador);
+    }
   }
 }
