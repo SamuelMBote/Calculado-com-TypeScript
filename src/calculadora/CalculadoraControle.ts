@@ -2,7 +2,12 @@ import DataHora from './DataHora';
 import Operacao from './Operacao';
 import Tela from './Tela';
 export default class CalculadoraControle {
-  constructor(private tela = new Tela(), private operacao = new Operacao()) {
+  constructor(
+    private tela = new Tela(),
+    private operacao = new Operacao({
+      onCalculado: (resultado: string) => (this.tela.conteudo = resultado),
+    }),
+  ) {
     new DataHora();
     this.eventoBotoes();
   }
@@ -13,7 +18,7 @@ export default class CalculadoraControle {
         switch (target.id) {
           case 'um':
           case 'dois':
-          case 'três':
+          case 'tres':
           case 'quatro':
           case 'cinco':
           case 'seis':
@@ -23,7 +28,7 @@ export default class CalculadoraControle {
             this.adicionarNumero(Number(target.dataset.valor));
             break;
           case 'adicao':
-          case 'substracao':
+          case 'subtracao':
           case 'divisao':
           case 'multiplicacao':
             this.adicionarOperador(String(target.dataset.valor));
@@ -37,9 +42,14 @@ export default class CalculadoraControle {
           case 'porcentagem':
             break;
           case 'igual':
+            this.calcular();
+            break;
         }
       });
     });
+  }
+  calcular(): void {
+    this.operacao.calcular();
   }
   adicionarOperacao(valor: string): void {
     this.operacao.adicionar(valor);
