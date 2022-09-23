@@ -16,6 +16,7 @@ export default class CalculadoraControle {
       elemento.addEventListener('click', (evento: Event) => {
         const target = evento.target as HTMLButtonElement;
         switch (target.id) {
+          case 'zero':
           case 'um':
           case 'dois':
           case 'tres':
@@ -55,8 +56,15 @@ export default class CalculadoraControle {
     this.operacao.adicionar(valor);
   }
   adicionarNumero(numero: number): void {
+    if (isNaN(Number(this.operacao.ultimaPosicao))) {
+      this.adicionarOperacao(numero.toString());
+    } else {
+      numero = Number(
+        this.operacao.ultimaPosicao.toString() + numero.toString(),
+      );
+      this.operacao.ultimaPosicao = numero.toString();
+    }
     this.tela.conteudo = numero.toString();
-    this.adicionarOperacao(numero.toString());
   }
   adicionarOperador(operador: string): void {
     this.adicionarOperacao(operador);
